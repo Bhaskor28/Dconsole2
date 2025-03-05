@@ -1,13 +1,15 @@
 ﻿
 using Dconsole2;
 
-namespace SBS {
+namespace SBS
+{
 
-    class Home {
+    class Home
+    {
         public static void Main(String[] args)
 
         {
-            Dictionary<int,BankAccount>memo = new Dictionary<int,BankAccount>();
+            Dictionary<int, BankAccount> memo = new Dictionary<int, BankAccount>();
 
             void AdUser()
             {
@@ -63,111 +65,125 @@ namespace SBS {
                 Screen();
                 Console.WriteLine("Enter any Option:");
 
-                var option = int.Parse(Console.ReadLine());
-
-                UserList userList = new UserList();
-                if(option == 6)
+                try
                 {
-                    break;
-                }
-                switch (option)
-                {
-                    case 1:
-                        AdUser();
 
+                    var option = int.Parse(Console.ReadLine());
+
+
+
+                    UserList userList = new UserList();
+                    if (option == 6)
+                    {
                         break;
-                    case 2:
-                        Console.WriteLine("Enter Account Number:");
-                        int acno = Convert.ToInt32(Console.ReadLine());
-                        //BankAccount ba = userList.findaccount(acno);
-                        if (memo.ContainsKey(acno))
-                        {
+                    }
+                    switch (option)
+                    {
+                        case 1:
+                            AdUser();
 
-                            Console.WriteLine("Enter Deposit Ammount: ");
-                            decimal amount = Convert.ToDecimal(Console.ReadLine());
-
-                            memo[acno].Balance += amount;
-                            Console.WriteLine($"previous Balance: {memo[acno].Balance - amount} after deposit {memo[acno].Balance}");
-
-
-                        }
-                        else
-                        {
-                            Console.WriteLine("Account not found! try again");
-                        }
-                        break;
-                    case 3:
-                        Console.WriteLine("Enter Account Number:");
-                        int ac = Convert.ToInt32(Console.ReadLine());
-                        //BankAccount bali = userList.findaccount(ac);
-                        if (memo.ContainsKey(ac))
-                        {
-
-                            Console.WriteLine("Enter Withdraw Ammount: ");
-                            decimal amount = Convert.ToDecimal(Console.ReadLine());
-                            if(memo[ac].Balance >= amount)
+                            break;
+                        case 2:
+                            Console.WriteLine("Enter Account Number:");
+                            int acno = Convert.ToInt32(Console.ReadLine());
+                            //BankAccount ba = userList.findaccount(acno);
+                            if (memo.ContainsKey(acno))
                             {
-                                memo[ac].Balance -= amount;
 
-                                Console.WriteLine($"previous Balance: {memo[ac].Balance + amount} after Withdraw {memo[ac].Balance}");
+                                Console.WriteLine("Enter Deposit Ammount: ");
+                                decimal amount = Convert.ToDecimal(Console.ReadLine());
+
+                                memo[acno].Balance += amount;
+                                Console.WriteLine($"previous Balance: {memo[acno].Balance - amount} after deposit {memo[acno].Balance}");
 
 
                             }
                             else
                             {
-                                Console.WriteLine("Not sufficient Balance ");
+                                Console.WriteLine("Account not found! try again");
                             }
-                            
+                            break;
+                        case 3:
+                            Console.WriteLine("Enter Account Number:");
+                            int ac = Convert.ToInt32(Console.ReadLine());
+                            //BankAccount bali = userList.findaccount(ac);
+                            if (memo.ContainsKey(ac))
+                            {
 
-                        }
-                        else
-                        {
-                            Console.WriteLine("Account not found! try again");
-                        }
-                        break;
-                    case 4:
-                        Console.WriteLine("Enter Account Number:");
-                        int bac = Convert.ToInt32(Console.ReadLine());
-                        //BankAccount balon = userList.findaccount(bac);
-                        if (memo.ContainsKey(bac))
-                        {
+                                Console.WriteLine("Enter Withdraw Ammount: ");
+                                decimal amount = Convert.ToDecimal(Console.ReadLine());
+                                if (memo[ac].Balance >= amount)
+                                {
+                                    memo[ac].Balance -= amount;
 
-                            Console.WriteLine($"Your account Balance is {memo[bac].Balance}");
+                                    Console.WriteLine($"previous Balance: {memo[ac].Balance + amount} after Withdraw {memo[ac].Balance}");
 
 
-                        }
-                        else
-                        {
-                            Console.WriteLine("Account not found! try again");
-                        }
-                        break;
-                    case 5:
-                        Console.WriteLine("Enter Account Number:");
-                        int fac = Convert.ToInt32(Console.ReadLine());
-                        Console.WriteLine("Enter interest rate:");
-                        decimal rate=Convert.ToDecimal(Console.ReadLine());
-                        if (memo.ContainsKey(fac))
-                        {
+                                }
+                                else
+                                {
+                                    Console.WriteLine("Not sufficient Balance ");
+                                }
 
-                            decimal gain = memo[fac].Balance * (rate / 100);
-                            memo[fac].Balance += gain;
-                            Console.WriteLine($"previous Balance: {memo[fac].Balance - gain} after applying interest rate {memo[fac].Balance}");
 
-                        }
+                            }
+                            else
+                            {
+                                Console.WriteLine("Account not found! try again");
+                            }
+                            break;
+                        case 4:
+                            Console.WriteLine("Enter Account Number:");
+                            int bac = Convert.ToInt32(Console.ReadLine());
+                            //BankAccount balon = userList.findaccount(bac);
+                            if (memo.ContainsKey(bac))
+                            {
 
-                        // SavingAccount.ApplyInt(rate);
+                                Console.WriteLine($"Your account Balance is {memo[bac].Balance}");
 
-                        break;
-                    
-                    default:
-                        Console.WriteLine("invalid input");
-                        break;
+
+                            }
+                            else
+                            {
+                                Console.WriteLine("Account not found! try again");
+                            }
+                            break;
+                        case 5:
+                            Console.WriteLine("Enter Account Number:");
+                            int fac = Convert.ToInt32(Console.ReadLine());
+                            Console.WriteLine("Enter interest rate:");
+                            decimal rate = Convert.ToDecimal(Console.ReadLine());
+                            if (memo.ContainsKey(fac))
+                            {
+
+                                decimal gain = memo[fac].Balance * (rate / 100);
+                                memo[fac].Balance += gain;
+                                Console.WriteLine($"previous Balance: {memo[fac].Balance - gain} after applying interest rate {memo[fac].Balance}");
+
+                            }
+
+                            // SavingAccount.ApplyInt(rate);
+
+                            break;
+
+                        default:
+                            Console.WriteLine("invalid input");
+                            break;
+                    }
                 }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Please try again with a valid input ");
+                }
+
+
+
             }
 
+
         }
-
+    }
 }
 
 
-}
+
